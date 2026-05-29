@@ -1,1 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Deletion Request - Maratha Business Hub</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #EF6C00;
+            --primary-dark: #BF360C;
+            --primary-light: #FFF3E0;
+            --accent: #F59E0B;
+            --bg-color: #FAF6F0;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --text-dark: #1E293B;
+            --text-light: #64748B;
+            --border-color: #E2E8F0;
+            --shadow: 0 10px 30px -10px rgba(239, 108, 0, 0.15);
+            --shadow-lg: 0 20px 40px -15px rgba(239, 108, 0, 0.2);
+            --font-main: 'Plus Jakarta Sans', sans-serif;
+            --font-heading: 'Outfit', sans-serif;
+        }
 
+        [data-theme="dark"] {
+            --bg-color: #0F172A;
+            --card-bg: rgba(30, 41, 59, 0.95);
+            --text-dark: #F8FAFC;
+            --text-light: #94A3B8;
+            --border-color: #334155;
+            --primary-light: #2C1A04;
+            --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+            --shadow-lg: 0 20px 40px -15px rgba(0, 0, 0, 0.6);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* Ambient glowing background shapes */
+        .ambient-glow-1 {
+            position: fixed;
+            top: -10%;
+            right: -10%;
+            width: 40vw;
+            height: 40vw;
+            background: radial-gradient(circle, rgba(239, 108, 0, 0.15) 0%, rgba(245, 158, 11, 0) 70%);
+            z-index: -1;
+            pointer-events: none;
+            border-radius: 50%;
+        }
+
+        .ambient-glow-2 {
+            position: fixed;
+            bottom: -10%;
+            left: -10%;
+            width: 40vw;
+            height: 40vw;
+            background: radial-gradient(circle, rgba(191, 54, 12, 0.1) 0%, rgba(239, 108, 0, 0) 70%);
+            z-index: -1;
+            pointer-events: none;
+            border-radius: 50%;
+        }
+
+        /* Top header bar */
+        header {
+            position: sticky;
+            top: 0;
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 100;
+            padding: 1rem 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .header-container {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 800;
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            box-shadow: 0 4px 10px rgba(239, 108, 0, 0.3);
+        }
+
+        .logo-text {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 1.25rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 1px solid var(--border-color);
+            border-radius: 30px;
+            padding: 6px 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--font-main);
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            background-color: var(--bg-color);
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* Main Container */
+        .main-container {
+            max-width: 800px;
+            width: 100%;
+            margin: 3rem auto;
+            padding: 0 1.5rem;
+            flex-grow: 1;
+        }
+
+        /* Content Card */
+        .content-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 3rem;
+            box-shadow: var(--shadow-lg);
+            backdrop-filter: blur(10px);
+        }
+
+        .hero-section {
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 2rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .badge {
+            display: inline-block;
+            background-color: var(--primary-light);
+            color: var(--primary);
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-family: var(--font-heading);
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--text-dark);
+            line-height: 1.2;
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.5px;
+        }
+
+        p {
+            color: var(--text-light);
+            font-size: 1rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .warning-box {
+            background-color: rgba(211, 47, 47, 0.08);
+            border-left: 4px solid #D32F2F;
+            border-radius: 12px;
+            padding: 1.25rem;
+            margin-bottom: 2rem;
+            color: #C62828;
+            font-size: 0.95rem;
+        }
+
+        [data-theme="dark"] .warning-box {
+            background-color: rgba(239, 83, 80, 0.1);
+            color: #EF5350;
+        }
+
+        .warning-box strong {
+            display: block;
+            margin-bottom: 0.25rem;
+            font-weight: 700;
+        }
+
+        h2 {
+            font-family: var(--font-heading);
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        h2::before {
+            content: "";
+            display: inline-block;
+            width: 4px;
+            height: 20px;
+            background: linear-gradient(to bottom, var(--primary), var(--accent));
+            border-radius: 2px;
+        }
+
+        /* Numbered Steps Styling */
+        ol {
+            margin-bottom: 2rem;
+            padding-left: 1.25rem;
+        }
+
+        ol li {
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        ol li p {
+            font-weight: 400;
+            color: var(--text-light);
+            margin-top: 0.25rem;
+            margin-bottom: 0;
+        }
+
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+        }
+
+        .info-table th, .info-table td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .info-table th {
+            background-color: var(--primary-light);
+            color: var(--primary);
+            font-weight: 700;
+            font-family: var(--font-heading);
+        }
+
+        .info-table td {
+            color: var(--text-light);
+        }
+
+        .info-table tr:hover td {
+            color: var(--text-dark);
+        }
+
+        .contact-box {
+            background-color: var(--primary-light);
+            border-left: 4px solid var(--primary);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .contact-box p {
+            color: var(--text-dark);
+            margin-bottom: 0.75rem;
+            font-weight: 500;
+        }
+
+        .contact-box a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .contact-box a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--card-bg);
+            border-top: 1px solid var(--border-color);
+            padding: 2rem;
+            text-align: center;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-top: auto;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            header {
+                padding: 1rem;
+            }
+            .content-card {
+                padding: 1.5rem;
+            }
+            h1 {
+                font-size: 1.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="ambient-glow-1"></div>
+    <div class="ambient-glow-2"></div>
+
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo-section">
+                <div class="logo-icon">M</div>
+                <span class="logo-text">Maratha Business Hub</span>
+            </a>
+            <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">
+                <span id="themeIcon">🌙</span> <span id="themeText">Dark Mode</span>
+            </button>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <main class="content-card">
+            <div class="hero-section">
+                <span class="badge">Google Play Store Safety</span>
+                <h1>Account & Data Deletion</h1>
+                <p>Learn how to safely delete your <strong>Maratha Business Hub (MBH)</strong> account and remove your personal and business records from our databases.</p>
+            </div>
+
+            <div class="warning-box">
+                <strong>⚠️ Warning: Account deletion is permanent!</strong>
+                Once your account is deleted, all registered businesses, profile images, job listings, and community events associated with your account will be permanently erased. This data cannot be recovered.
+            </div>
+
+            <h2>How to Request Account Deletion</h2>
+            <p>We provide two simple and secure methods to delete your account and associated data:</p>
+
+            <ol>
+                <li>
+                    Method A: In-App Deletion Request (Recommended)
+                    <p>Open the <strong>Maratha Business Hub</strong> app on your device, log in, navigate to **Profile > Settings**, and tap on the **"Delete Account"** option. Confirm your request, and your account will be deleted instantly.</p>
+                </li>
+                <li>
+                    Method B: Email Request (Direct Administration Support)
+                    <p>If you have uninstalled the app or cannot access your account, you can request account deletion by emailing our admin team at <a href="mailto:aniketatkare@gmail.com">aniketatkare@gmail.com</a>. Please write <em>"Account Deletion Request - Maratha Business Hub"</em> as the subject, and specify your registered email address and name. We will permanently delete your account within 7 business days.</p>
+                </li>
+            </ol>
+
+            <h2>Data Retention Policy (What is Deleted vs. Kept)</h2>
+            <p>We respect your privacy and do not retain any of your personal information once you choose to leave our platform.</p>
+
+            <table class="info-table">
+                <thead>
+                    <tr>
+                        <th>Data Category</th>
+                        <th>Status After Deletion</th>
+                        <th>Retention Period</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Authentication Profile</strong> (Name, Email, Password, Phone Number)</td>
+                        <td>Permanently Deleted</td>
+                        <td>Immediate (in-app) or within 7 days (email)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Business Listing Profile</strong> (Business name, address, description, photos, WhatsApp)</td>
+                        <td>Permanently Deleted</td>
+                        <td>Immediate (in-app) or within 7 days (email)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Job Postings</strong> (Open/Closed job vacancies)</td>
+                        <td>Permanently Deleted</td>
+                        <td>Immediate (in-app) or within 7 days (email)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Event Listings</strong> (Community and business programs)</td>
+                        <td>Permanently Deleted</td>
+                        <td>Immediate (in-app) or within 7 days (email)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Visitor Logs & Analytics</strong> (Profile visit histories)</td>
+                        <td>Permanently Deleted</td>
+                        <td>Immediate (in-app) or within 7 days (email)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>Contact Our Support Team</h2>
+            <p>If you have any further questions or require technical assistance regarding account deletion, please contact our support desk:</p>
+            
+            <div class="contact-box">
+                <p>📧 <strong>Email Support:</strong> <a href="mailto:aniketatkare@gmail.com">aniketatkare@gmail.com</a></p>
+                <p>✉️ <strong>Alternative Email:</strong> <a href="mailto:anu909m@gmail.com">anu909m@gmail.com</a></p>
+                <p>🌐 <strong>Developer Name:</strong> Anu Patil / Aniket Atkare</p>
+            </div>
+        </main>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Maratha Business Hub. All rights reserved. Empowering Community Businesses through Technology.</p>
+    </footer>
+
+    <script>
+        // Check for saved theme preference, otherwise use system preference
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        updateThemeUI(savedTheme);
+
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeUI(newTheme);
+        }
+
+        function updateThemeUI(theme) {
+            const themeIcon = document.getElementById('themeIcon');
+            const themeText = document.getElementById('themeText');
+            if (theme === 'dark') {
+                themeIcon.textContent = '☀️';
+                themeText.textContent = 'Light Mode';
+            } else {
+                themeIcon.textContent = '🌙';
+                themeText.textContent = 'Dark Mode';
+            }
+        }
+    </script>
+</body>
+</html>
